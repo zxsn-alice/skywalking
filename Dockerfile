@@ -13,14 +13,14 @@
 FROM alpine:3.8 AS sky-builder
 
 # after ADD unzip does not work?
-ADD https://mirrors.tuna.tsinghua.edu.cn/apache/incubator/skywalking/5.0.0-GA/apache-skywalking-apm-incubating-5.0.0-GA.tar.gz /
-
-RUN tar -zxvf /apache-skywalking-apm-incubating-5.0.0-GA.tar.gz
+# ADD https://mirrors.tuna.tsinghua.edu.cn/apache/incubator/skywalking/5.0.0-GA/apache-skywalking-apm-incubating-5.0.0-GA.tar.gz /
+ADD http://mirrors.tuna.tsinghua.edu.cn/apache/skywalking/6.1.0/apache-skywalking-apm-6.1.0.tar.gz /
+RUN tar -zxvf /apache-skywalking-apm-6.1.0.tar.gz
 
 FROM java:openjdk-8u111-jre
 
 ENV ES_CLUSTER_NAME=CollectorDBCluster \
-    ES_ADDRESSES=localhost:9300 \
+    ES_ADDRESSES=172.17.0.11:9300 \
     NAMING_BIND_HOST=0.0.0.0 \
     NAMING_BIND_PORT=10800 \
     REMOTE_BIND_HOST=0.0.0.0  \
