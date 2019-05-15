@@ -15,7 +15,7 @@ FROM alpine:3.8 AS sky-builder
 # after ADD unzip does not work?
 # ADD https://mirrors.tuna.tsinghua.edu.cn/apache/incubator/skywalking/5.0.0-GA/apache-skywalking-apm-incubating-5.0.0-GA.tar.gz /
 ADD http://mirrors.tuna.tsinghua.edu.cn/apache/skywalking/6.1.0/apache-skywalking-apm-6.1.0.tar.gz /
-RUN tar -zxvf /apache-skywalking-apm-6.1.0.tar.gz
+RUN tar -zxvf apache-skywalking-apm-6.1.0.tar.gz
 
 FROM java:openjdk-8u111-jre
 
@@ -32,7 +32,7 @@ ENV ES_CLUSTER_NAME=CollectorDBCluster \
     UI_JETTY_BIND_PORT=12800 \
     UI_JETTY_BIND_HOST=0.0.0.0
 
-COPY --from=sky-builder /apache-skywalking-apm-incubating /skywalking
+COPY --from=sky-builder /apache-skywalking-apm-bin /skywalking
 
 #COPY application.yml /skywalking/config/application.yml
 
